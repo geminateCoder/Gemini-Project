@@ -1,5 +1,7 @@
 {% extends "home/base.html" %}
+{% load staticfiles %}
 {% block content %}
+
 
 	<a href="#0" class="cd-top"><i class='fa fa-arrow-up'></i></a>
 
@@ -8,7 +10,7 @@
         <div class="container" style="padding-top:25px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="{{ url_for('static',filename='img/fav.png') }}" width="150" alt="">
+                    <img class="img-responsive" src="{% static "img/fav.png" %}" width="150" alt="">
                     <div class="intro-text">
                         <span class="name">Welcome to our Role-Play Haven!</span>
                             <hr class="star-light">

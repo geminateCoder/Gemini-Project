@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,8 +8,8 @@
 <head>
 
     <meta charset="utf-8">
-	<link rel="icon" href="{{ url_for('static',filename='img/fav.png') }}" type="image/x-icon"/>
-	<link rel="shortcut icon" href="{{ url_for('static',filename='img/fav.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{% static "img/fav.png" %}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{% static "img/fav.png" %}" type="image/x-icon"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -21,40 +22,35 @@
     {% endif %}
 
     <!-- RESET -->
-    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/reset.css') }}">
+    <link rel=stylesheet type=text/css href="{% static "css/reset.css" %}">
     <!-- Bootstrap Core CSS -->
-    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap-theme.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap-theme.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap-theme.min.css" %}" rel="stylesheet">
     {% block custom_css %}{% endblock %}
 
     <!-- Custom CSS -->
-    <link href="{{ url_for('static',filename='css/freelancer.css') }}" rel="stylesheet">
-    {% assets "scss_all" %}
-    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/all.css') }}">
-    {% endassets %}
+    <link href="{% static "css/freelancer.css" %}" rel="stylesheet">
+
+    <link rel=stylesheet type=text/css href="{% static "css/all.css" %}" >
 
     <!-- Custom Fonts & Icons -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/icomoon-social.css') }}">
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{% static "css/icomoon-social.css" %}" >
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}" >
 
     <link rel='stylesheet' type='text/css' href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-	<link href='https://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
-
+    <link href='https://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 </head>
-
-
 
 <body>
 
-<div class="header">
-
+  <div class="header">
 
       <!-- Static navbar -->
       <nav class="navbar navv">
@@ -66,7 +62,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="margin-top:-30px;"><img src="{{ url_for('static',filename='img/logo.png') }}" width="250"></a>
+            <class="navbar-brand" href="/" style="margin-top:-30px;"><img src="{% static "img/logo.png" %}"></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -88,25 +84,23 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-</div>
+  </div>
 
-<div class="mainContainer {% if page=='settings' or page=='editC' %}darkbg{% endif %}" >
+  <div class="mainContainer {% if page in editpage %}darkbg{% endif %}" >
 
-      {% with messages = get_flashed_messages(with_categories=True) %}
-         {% if messages %}
-               {% for category, message in messages %}
-               <div class="alert alert-{{ category }}" style="margin:auto; margin-bottom:0px; position:relative;z-index:100;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                   {{ message }}
-               </div>
-               {% endfor %}
-         {% endif %}
-      {% endwith %}
+      {% if messages %}
+          {% for category, message in messages %}
+             <div class="alert alert-{{ category }}" style="margin:auto; margin-bottom:0px; position:relative;z-index:100;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               {{ message }}
+             </div>
+          {% endfor %}
+      {% endif %}
 
 
 {% block content %}{% endblock %}
 
 
-<footer class="text-center">
+  <footer class="text-center">
         <div class="footer-above">
             <div class="container">
                 <div class="row">
@@ -151,31 +145,31 @@
             </div>
         </div>
     </footer>
-</div>
+  </div>
 </body>
    <!-- Footer -->
 
 
     <!-- JQuery -->
-    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery/jQuery-2.2.0.min.js') }}" charset="utf-8"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery/jquery.easing.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery/jquery-ui.js') }}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/jquery/jQuery-2.2.0.min.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/jquery/jquery.easing.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery/jquery-ui.js" %}" charset="utf-8"></script>
 
     <!-- Bootstrap JS -->
-    <script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename='bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.js" %}"></script>
 
 
     <!-- Custom JS -->
-    <script src="{{ url_for('static',filename='js/freelancer.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <script src="{% static "js/freelancer.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
 
     <!-- Plugin JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="{{ url_for('static',filename='js/classie.js') }}"></script>
+    <script src="{% static "js/classie.js" %}"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="{{ url_for('static',filename='js/jqBootstrapValidation.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/contact_me.js') }}"></script>
+    <script src="{% static "js/jqBootstrapValidation.js" %}"</script>
+    <script src="{% static "js/contact_me.js" %}"></script>
 
 </html>
