@@ -29,10 +29,12 @@ class Goal(models.Model):
     def __str__(self):
         return self.title
 
+def upload_location(instance, filename):
+    return "{}/{}".format(instance.username, filename)
 
 class Feature(models.Model):
     name = models.CharField(max_length=100)
-    img = models.ImageField(null=True)
+    img = models.ImageField(upload_to=upload_location,null=True, blank=True)
     desc = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -42,7 +44,7 @@ class Feature(models.Model):
 
 class Staff(models.Model):
     staff = models.ForeignKey(User)
-    img = models.ImageField(null=True)
+    img = models.ImageField(upload_to=upload_location,null=True, blank=True)
     title = models.CharField(max_length=100)
     about = models.TextField()
     joined_on = models.DateTimeField(auto_now_add=True)
