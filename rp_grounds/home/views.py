@@ -1,3 +1,5 @@
+from .models import NewsPost
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
 
@@ -27,6 +29,21 @@ def staff(request):
 
 
 def news(request):
-    context = {}
+    news_list = NewsPost.objects.all().order_by("-timestamp")
+
+    paginator = Paginator(news_list, 5) # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        news = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        news = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        news = paginator.page(paginator.num_pages)
+    context = {
+        "news": news
+    }
     return render(request, 'home/news.html', context)
 
