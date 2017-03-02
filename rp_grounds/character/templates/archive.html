@@ -1,0 +1,87 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+{% include "sidebar.html" %}
+
+  <div class="col-md-9" >
+<ul id="thumbails" class="list-unstyled container-fluid" style="margin-top:30px; width:750px;">
+        {% for chara in charas %}
+
+  	<div class="thumbnail col-md-2">
+        <center><div class="pretty">{% if chara.img %}<img src="/media/{{ chara.img }}" />
+            {% else %}<img src="{% static 'img/default_image.png' %}" />{% endif %}</div></center>
+        <div class="caption text-center">
+          <strong>{{ chara }}</strong><br/><br/>
+          <p>
+          	<a href="/character/profile/{{ chara.id }}" type="button" class="btn btn-primary" aria-label="Left Align">
+              <span class="fa fa-user" aria-hidden="true"></span>
+            </a>
+            <a href="/character/edit/{{ chara.id }}" type="button" class="btn btn-warning" aria-label="Left Align">
+              <span class="fa fa-pencil" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="modal"  href="#{{ chara.id }}" class="btn btn-danger" aria-label="Left Align">
+              <span class="fa fa-trash" aria-hidden="true"></span>
+            </a>
+          </p>
+        </div>
+    </div>
+
+
+
+
+       <div class="modal fade" id="{{ chara.id }}" role="dialog">
+            <div class="modal-dialog" style="margin-top:50px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <center><h4>You are about to delete a character!</h4></center>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure you want to <font color="red">delete</font> <em>{{ chara }}</em> ?</h4>
+                        <br/>
+                        <center><div class="pretty">{% if chara.img %}<img src="/media/{{ chara.img }}" width="200"/>
+            {% else %}<img src="{% static 'img/default_image.png' %}" width="200"/>{% endif %}</div></center>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-success">No</button>
+                        <form action="{% url 'delchara' chara.pk %}"  class="btn btn-danger" method="post">
+                        {% csrf_token %}
+                            <button type="submit" style="background:transparent;">Yes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+</ul>
+
+
+
+
+<center><div class="pagination">
+    <span class="step-links">
+        {% if charas.has_previous %}
+            <a class="btn btn-primary" href="?page={{ charas.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ charas.number }} of {{ charas.paginator.num_pages }}
+        </span>
+
+        {% if charas.has_next %}
+            <a class="btn btn-primary" href="?page={{ charas.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div></center>
+
+
+
+</div>
+</div>
+
+
+
+
+
+{% endblock %}

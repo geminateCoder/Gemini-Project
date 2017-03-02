@@ -1,15 +1,14 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-
+{% load staticfiles %}
 <head>
 
     <meta charset="utf-8">
-    <link rel="icon" href="{% static "img/fav.png" %}" type="image/x-icon"/>
-    <link rel="shortcut icon" href="{% static "img/fav.png" %}" type="image/x-icon"/>
+    <link rel="icon" href='{% static "img/fav.png" %}' type="image/x-icon"/>
+    <link rel="shortcut icon" href='"{% static "img/fav.png" %}' type="image/x-icon"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -18,7 +17,7 @@
     {% if title %}
     <title>{{ title }}</title>
     {% else %}
-    <title>RPGrounds-BETA</title>
+    <title>{% block title %}{% endblock %}</title>
     {% endif %}
 
     <!-- RESET -->
@@ -33,8 +32,10 @@
 
     <!-- Custom CSS -->
     <link href="{% static 'css/freelancer.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
     <link rel=stylesheet type=text/css href="{% static 'css/all.css' %}" >
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
     {% block custom_css %}{% endblock %}
     <!-- Custom Fonts & Icons -->
     <link rel="stylesheet" href="{% static 'css/icomoon-social.css' %}" >
@@ -47,14 +48,16 @@
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
-</head>
 
+
+</head>
+      <!-- Static navbar -->
 <body>
 
-  <div class="header">
+  <div class="header" style="height:120px;">
 
       <!-- Static navbar -->
-      <nav class="navbar navv">
+      <nav class="navbar">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -63,23 +66,55 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="margin-top:-30px;"><img src="{% static 'img/logo.png' %}" width="250"></a>
+            <div><a href="/"><img src="{% static 'img/logo.png' %}" width="200"></a></div>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/about">About</a></li>
+
+            {% if user.is_authenticated %}
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#8f969d;text-transform: None;">{% if user.profile.img %}<img src="/media/{{ user.profile.img }}" style="max-height:50px;max-width;150"/>{% else %}<img src="{% static 'img/default_image.png' %}" style="max-height:50px;max-width;150"/>{% endif %} {% if user.profile.displayname %}{{user.profile.displayname}}{% else %}{{user.username}}{%endif%} <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="text-decoration: none; ">
+                        <li>
+                            <a href="{% url 'index' %}"><i class="fa fa-dashboard fa-lg"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'update_profile' %}"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{% url 'account_logout' %}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+                {% else %}
+
+               <li><a href="/about">About</a></li>
               <li><a href="/news">News</a></li>
-              <li><a href="#">Search</a></li>
-             {% if page == 'login' %}
-                <li><a href="/register">Register</a></li>
-            {% elif page == 'register' %}
-                <li> <a href="/login">Login</a></li>
-            {% elif current_user.is_authenticated %}
-               <li> <a href="/logout">Logout</a></li>
-            {% else %}
-                <li> <a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
-            {% endif %}
+              <li><a href="#">Search</a></li>{% endif %}
+
+             {% if request.get_full_path == "/accounts/login/" %}
+                <li><a href="{% url 'account_signup' %}">Register</a></li>
+            {% elif request.get_full_path == "/accounts/signup/" %}
+
+                <li> <a href='{% url "account_login" %}'>Login</a></li>
+
+             {% elif not user.is_authenticated %}
+               <li> <a href="{% url 'account_login' %}">Login</a></li>
+              <li><a href="{% url 'account_signup' %}">Register</a></li>
+             {% endif %}
 
             </ul>
           </div><!--/.nav-collapse -->
@@ -87,51 +122,21 @@
       </nav>
   </div>
 
-  <div class="mainContainer {% if page in editpage %}darkbg{% endif %}" >
-
-      {% if messages %}
-          {% for category, message in messages %}
-             <div class="alert alert-{{ category }}" style="margin:auto; margin-bottom:0px; position:relative;z-index:100;"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-               {{ message }}
-             </div>
-          {% endfor %}
-      {% endif %}
-
-
+<div class="mainContainer">
 {% block content %}{% endblock %}
 
-
-  <footer class="text-center">
+<footer class="text-center">
         <div class="footer-above">
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
+                        <h3>Placeholder</h3>
+                        <p>I'm not sure what to put here yet.</p>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>About Freelancer</h3>
-                        <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                    <div class="footer-col col-md-8">
+                        <img src="http://www.vidmy.com/sample-images/728x90.png" />
+                        <br /><br />
+                        About | Donate | Beta Testing | Credit
                     </div>
                 </div>
             </div>
@@ -140,37 +145,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Your Website 2014
+                        Copyright &copy; RolePlaygrounds.me 2016
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-  </div>
-</body>
-   <!-- Footer -->
+</div>
 
+
+</body>
 
     <!-- JQuery -->
     <script type="text/javascript" src="{% static 'js/jquery/jQuery-2.2.0.min.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/jquery/jquery.easing.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery/jquery-ui.js' %}" charset="utf-8"></script>
 
+
     <!-- Bootstrap JS -->
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-
-
-    <!-- Custom JS -->
-    <script src="{% static 'js/freelancer.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-    <script src="{% static 'js/classie.js' %}"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="{% static 'js/jqBootstrapValidation.js' %}"</script>
-    <script src="{% static 'js/contact_me.js' %}"></script>
 
 </html>

@@ -91,3 +91,4 @@ ENV/
 # project 
 db.sqlite3
 .idea
+/rp_grounds/home/templates/home/base2.html

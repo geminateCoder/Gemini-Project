@@ -1,4 +1,4 @@
-Django==1.9.7
+django==1.10.2
 argparse==1.2.1
 wsgiref==0.1.2
 pillow==3.3.0

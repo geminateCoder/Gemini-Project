@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-
+from django.conf import settings
 # Create your models here.
 
 
@@ -11,7 +11,8 @@ class NewsPost(models.Model):
     text = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(
+        User)
 
     def __unicode__(self):
         return self.title
@@ -31,7 +32,7 @@ class Goal(models.Model):
 
 
 def upload_location(instance, filename):
-    return "{}/{}".format(instance.username, filename)
+    return "{}/{}/{}".format("staff_posts",instance.username, filename)
 
 
 class Feature(models.Model):
@@ -44,8 +45,9 @@ class Feature(models.Model):
         return self.name
 
 
-class Staff(models.Model):
-    staff = models.ForeignKey(User)
+class StaffList(models.Model):
+    staff = models.ForeignKey(
+        User)
     img = models.ImageField(upload_to=upload_location, null=True, blank=True)
     title = models.CharField(max_length=100)
     about = models.TextField()

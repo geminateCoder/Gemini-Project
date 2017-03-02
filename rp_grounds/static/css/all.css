@@ -27,9 +27,8 @@
             font-family: 'Roboto', sans-serif; }
 
             .header {
-              position: relative;
               width: 90%;
-              height: 100px;
+              position: relative;
               background-color: #505555;
               margin: auto;
               border-bottom: solid #505555 2px; }

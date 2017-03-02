@@ -25,6 +25,14 @@ SECRET_KEY = '727qx3%$vb+b&%ig_f$@i$0lu!kdd_!c$-5mdh)gymegcrh6t5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+EMAIL_HOST = "smtp.sendgrid.com"
+EMAIL_HOST_USER = 'technobat'
+EMAIL_MAIN = 'gizmo@technobat.com'
+EMAIL_HOST_PASSWORD = 'lo2erlo2er'
+EMAIL_PORT = '587'
+EMAIL_USER_TLS = 'True'
+
+
 ALLOWED_HOSTS = []
 
 
@@ -37,8 +45,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'crispy_forms',
     'home',
+    'userprofile',
+    'character',
+    'posts',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +74,7 @@ ROOT_URLCONF = 'rp_grounds.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'allauth')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,9 +86,29 @@ TEMPLATES = [
         },
     },
 ]
+AUTHENTICATION_BACKENDS = (
 
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_REQUIRED=True
+LOGIN_REDIRECT_URL= "user_dash"
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USERNAME_MIN_LENGTH = 3
+
+
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 WSGI_APPLICATION = 'rp_grounds.wsgi.application'
 
+#Custom User DB
+
+#AUTH_USER_MODEL = 'userprofile.UserProfile'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -101,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+DATE_INPUT_FORMATS = ('%d-%m-%Y')
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 

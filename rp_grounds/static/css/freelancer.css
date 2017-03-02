@@ -80,7 +80,7 @@ hr.star-primary:after {
 
 header {
     text-align: center;
-    color: #fff;
+    color: #000;
     background: #18bc9c;
 }
 
@@ -95,6 +95,7 @@ header img {
 
 header .intro-text .name {
     display: block;
+    color:black;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 2em;
@@ -144,6 +145,7 @@ header .intro-text .skills {
         font-size: 1.5em;
     }
 }
+
 
 .navbar {
     text-transform: uppercase;
@@ -259,6 +261,10 @@ section.success a.active {
         margin: 0 0 30px;
     }
 }
+
+
+
+
 
 .btn-outline {
     margin-top: 15px;

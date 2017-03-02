@@ -1,0 +1,75 @@
+{% load staticfiles %}
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="row">
+  <div class="col-md-2" style="width:300px; min-height:700px;">
+<div class="nav-side-menu" style="min-height:700px;">
+    <div class="brand">{% if user.profile.img %}<img  src="/media/{{ user.profile.img }}"  />
+        {% else %}<img src="{% static 'img/default_image.png' %}" id="dimg"/>{% endif %} <br/>
+        <strong>{% if user.profile.displayname %}{{user.profile.displayname}}{% else %}{{user.username}}{% endif %}</strong> </div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+        <div class="menu-list">
+
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-fw fa-user fa-lg"></i> Profile
+                  </a>
+                </li>
+
+                <li data-toggle="collapse" data-target="#chara" class="collapsed active">
+                  <a href="#"><i class="fa fa-plus fa-lg"></i>Characters <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="chara">
+                  <li><a href="{% url 'archive' %}">Archive</a></li>
+                  <li><a href="{% url 'create' %}">Create a Character</a></li>
+                  <li><a href="#">Favorite Characters</a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#writing" class="collapsed">
+                  <a href="#"><i class="fa fa-pencil fa-lg"></i> Writing <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="writing">
+                    <li><a href="#">Blog Posts</a></li>
+                    <li><a href="#">Prompt Posts</a></li>
+                    <li><a href="#">Fanfictions</a></li>
+                </ul>
+
+                <li  data-toggle="collapse" data-target="#community" class="collapsed">
+                  <a href="#"><i class="fa fa-building fa-lg"></i> Community <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="community">
+                    <li class="active"><a href="#">Forums</a></li>
+                    <li><a href="#">Chatrooms</a></li>
+                    <li><a href="#">Roleplays</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="{% url 'news' %}">News</a></li>
+                </ul>
+
+
+                <li >
+                  <a href="#"><i class="fa fa-bell fa-lg"></i> Notification</a>
+                </li>
+
+
+
+
+
+
+
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-users fa-lg"></i> Friends
+                  </a>
+                </li>
+            </ul>
+     </div>
+</div>
+
+
+
+
+</div>
+
+
+

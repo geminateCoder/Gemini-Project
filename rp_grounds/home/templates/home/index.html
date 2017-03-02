@@ -1,3 +1,4 @@
+
 {% extends "home/base.html" %}
 {% load staticfiles %}
 {% block content %}
@@ -6,26 +7,22 @@
 	<a href="#0" class="cd-top"><i class='fa fa-arrow-up'></i></a>
 
     <!-- Header -->
-    <header>
-        <div class="container" style="padding-top:25px;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive" src="{% static 'img/fav.png' %}" width="150" alt="">
-                    <div class="intro-text">
-                        <span class="name">Welcome to our Role-Play Haven!</span>
-                            <hr class="star-light">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+
 
     <!-- Portfolio Grid Section -->
-    <section id="guide">
+    <section  id="guide">
         <div class="container">
             <div class="row">
+    <header>
+
                 <div class="col-lg-12 text-center">
+                    <!-- <img class="img-responsive" src="{% static 'img/fav.png' %}" width="150" alt=""> -->
+                    <div class="intro-text" style="margin-top:-50px;">
+                        <span class="name" style="color:black;">Welcome to our Role-Playgrounds!</span>
+                    </div>
                 </div>
+    </header>
+                <hr class="star-primary">
             </div>
             <div class="row">
 
@@ -52,10 +49,8 @@
 
 		        		</div>
 	        		</div>
+</div>
 
-            </div>
-            <br/><br/>
-            <hr class="star-primary">
         </div>
     </section>
 
@@ -70,62 +65,23 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+                    <p>RPGrounds, a website to build, archive and role play characters. Explore worlds you've built in a community as eager as you are, or explore preexisting worlds media and other users created.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+                    <p>The goal we have set for this website is something big. However, the progress is slow due to the fact that only one person is working on the code.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="features">
+    <section id="recent">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Features</h2>
+                    <h2>Recent</h2>
                     <hr class="star-primary">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-
-                </div>
-            </div>
         </div>
     </section>
-
-    <section class="success" id="news">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>News</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="staff">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Staff</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-
-                </div>
-            </div>
-        </div>
-    </section>
-
 {% endblock %}

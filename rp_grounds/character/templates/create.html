@@ -1,0 +1,35 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account socialaccount %}
+{% block content %}
+
+{% include "sidebar.html" %}
+
+  <div class="col-md-7">
+
+
+		<form action="{% url 'create' %}" enctype="multipart/form-data" method="post" class="form-signin" style="margin-top:50px;">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                  {% endif %}
+
+			  <button class="btn btn-lg btn-primary btn-block primaryAction"  name="Submit" value="Create" type="Submit">Create Character</button>
+		</form>
+
+
+  </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}

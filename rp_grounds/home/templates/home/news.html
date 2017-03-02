@@ -9,50 +9,39 @@
 {% for obj in news %}
 
 
-
-
-
-
-<div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">{{ obj.title }}</h3>
-        </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <div class="row">
-                <div class="col-md-12 col-sm-12">
-
-                    <div class="comment-list styled clearfix">
-                        <ol>
-                            <li class="comment">
-                                <div class="comment-body">
-                                    <div class="comment-arrow"></div>
-                                    <div class="comment-avatar">
-                                        <div class="avatar"><img src="{% static 'img/default_image.png' %}" alt="" /></div>
-                                    </div>
-                                    <div class="comment-text">
-                                        <div class="comment-author clearfix">
-                                            <a href="#" class="link-author">{{ obj.author }}</a>
-                                        </div>
-                                        <div class="comment-entry">
-                                            {{ obj.text }}
-                                        </div>
-                                    </div>
-                                    <div class="box-footer clearfix">
-                                  <div class="pull-right">6/26/2016</div>
-                                </div>
-                                </div>
-                            </li>
-                        </ol>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="/media/{{ obj.author.profile.img }}" class="img-circle avatar" alt="user profile image">
                     </div>
-
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#"><b>{{ obj.author.username }}</b></a>
+                            made a post.
+                        </div>
+                        <h6 class="text-muted time">1 minute ago</h6>
+                    </div>
                 </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
+                <div class="post-description">
+                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                    <div class="stats">
+                        <a href="#" class="btn btn-default stat-item">
+                            <i class="fa fa-thumbs-up icon"></i>2
+                        </a>
+                        <a href="#" class="btn btn-default stat-item">
+                            <i class="fa fa-thumbs-down icon"></i>12
+                        </a>
+                    </div>
+                </div>
             </div>
-            <!-- /.box-body -->
-          </div>
+        </div>
+
+    </div>
+</div>
 
 {% endfor %}
 
